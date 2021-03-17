@@ -1,32 +1,36 @@
-<!doctype HTML>
-<html lang="pl">
-<head>
-	<meta charset="UTF-8">
-	<title>Dawid Czarneta</title>
-	<meta name="description" content="programista - strona kontaktowa">
+---
+layout: default
+title: "The high quality, completely customizable, performant and 100% free blog template for Jekyll"
+description: "Chalk uses all the best tools and merges them into one premium blogging theme."
+---
 
-	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-	<link rel="stylesheet" href="fontawsome/css/font-awesome.min.css">
-	<link rel="shortcut icon" href="images/eye.png" type="image/x-icon">
-</head>
-<body>
-<div class="content">
-	<div class="box">
-		<h1>Dawid Czarneta</h1>
-		<h2></h2>
-		<i class="fa fa-envelope-o"></i>
-		</br>
-		<a class="mail" href="mailto: dawidczarneta@gmail.com">dawidczarneta@gmail.com</a>
-	</div>
-	<div id="backgroundimage">
-	</div>
-	<div id="backgroundcolor">		
-	</div>
-	<div id="backgroundgradient">		
-	</div>
-</div>
-<footer >
-</footer>
-
-</body>
-</html>
+<ul class="article-list">
+  {% for post in paginator.posts %}
+    <li class="article-list-item {% if site.scrollappear_enabled %}scrollappear{% endif %}">
+      <a href="{{ post.url | relative_url }}" title="{{ post.title }}">
+        <h5>
+          {{ post.title }}
+          {% include svg-icon.html icon="arrow-right" %}
+        </h5>
+      </a>
+      <p>
+        {% if post.description %}
+          {{ post.description }}  
+        {% else %}
+          {{ post.excerpt }}
+        {% endif %}
+      </p>
+      {% include article/info-footer.html post=post %}
+    </li>
+  {% endfor %}
+  {% if paginator.total_pages > 1 %}
+    <li class="article-pagination {% if site.settings.scrollappear_enabled %}scrollappear{% endif %}">
+      {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path }}" class="article-pagination-left">{% include svg-icon.html icon="arrow-left" %} Older posts</a>
+      {% endif %}
+      {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path }}" class="article-pagination-right">Newer posts {% include svg-icon.html icon="arrow-right" %}</a>
+      {% endif %}
+    </li>
+  {% endif %}
+</ul>
